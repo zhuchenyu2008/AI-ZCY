@@ -1,18 +1,16 @@
-# AI-ZCY
-├── admin/
-│   ├── dashboard.php
-│   ├── users.php
-│   └── apis.php
+/
 ├── includes/
 │   ├── config.php
-│   ├── auth.php
-│   └── api_handler.php
-├── uploads/
+│   ├── db.php
+│   └── functions.php
+├── admin/
+│   ├── index.php
+│   ├── users.php
+│   └── apis.php
 ├── assets/
 │   ├── css/
-│   ├── js/
-│   └── images/
+│   └── js/
 ├── index.php
-├── chat.php
 ├── login.php
-└── register.php
+├── register.php
+└── chat.php

@@ -1,29 +1,26 @@
 <?php
-require 'includes/functions.php';
+require 'includes/db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
-    $password = $_POST['password'];
-    if (loginUser($username, $password)) {
-        header('Location: chat.php');
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    try {
+        $stmt = $pdo->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
+        $stmt->execute([$username, $password]);
+        header('Location: login.php');
         exit;
-    } else {
-        $error = "用户名或密码错误！";
+    } catch (PDOException $e) {
+        $error = "用户名已存在！";
     }
 }
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>登录</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
 <body>
     <form method="POST">
         <input type="text" name="username" placeholder="用户名" required>
         <input type="password" name="password" placeholder="密码" required>
-        <button type="submit">登录</button>
+        <button type="submit">注册</button>
         <?php if(isset($error)) echo "<p style='color:red'>$error</p>"; ?>
     </form>
-    <a href="register.php">注册新账号</a>
 </body>
 </html>
